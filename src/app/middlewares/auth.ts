@@ -3,27 +3,35 @@ import { catchAsync } from "../utils/catchAsync";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { UserModel } from "../modules/auth/auth.model";
 
-const auth = (...requiredRole: string[]) => {
+export const auth = (...requiredRole: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      const token = req.headers.authorization;
-      console.log(token?.split(' ')[1]);
-      
+    const token = req.headers.authorization;
+    
 
     if (!token) {
       throw new Error("You are not Authorized!");
     }
 
-    const decode = jwt.verify(token?.split(' ')[1], "secret") as JwtPayload;
-    const { email, role } = decode;
+    const decode = jwt.verify(token?.split(" ")[1], "secret") as JwtPayload;
+    console.log("decode -------->", decode);
+
+    
+
+    const { email, role, name } = decode;
+    console.log(name);
+    
     const user = await UserModel.findOne({ email });
     if (!user) {
       throw new Error("User not found!");
     }
+    console.log(requiredRole, role);
+    
+
     if (requiredRole && !requiredRole.includes(role)) {
       throw new Error("Your role not match so, You are not Authorized!");
     }
+    
     next();
   });
 };
 
-export default auth;

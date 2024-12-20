@@ -32,9 +32,19 @@ const createLoginUserIntoDB = async (payload: TLoginUser) => {
     throw new Error("Password is not Match!");
   }
 
-  const token = jwt.sign({ email: user?.email, role: user?.role }, "secret", {
-    expiresIn: "30d",
-  });
+  const token = jwt.sign(
+    {
+      _id : user?._id,
+      name: user?.name,
+      email: user?.email,
+      role: user?.role,
+      isBlocked: user?.isBlocked,
+    },
+    "secret",
+    {
+      expiresIn: "30d",
+    }
+  );
 
   return {
     token,
