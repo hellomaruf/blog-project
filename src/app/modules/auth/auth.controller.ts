@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { catchAsync } from "../../utils/catchAsync";
-import { registerServices } from "./auth.service";
-import { TUser } from "./auth.interface";
+import { authServices } from "./auth.service";
+import { TLoginUser, TUser } from "./auth.interface";
 
 const createRegisterUser: RequestHandler = catchAsync(
   async (req, res, next) => {
@@ -16,7 +16,7 @@ const createRegisterUser: RequestHandler = catchAsync(
     };
 
     // will call service function to send this data------------->
-    const result = await registerServices.createRegisterUserIntoDB(
+    const result = await authServices.createRegisterUserIntoDB(
       userRegisterData
     );
 
@@ -28,12 +28,34 @@ const createRegisterUser: RequestHandler = catchAsync(
       data: {
         name: result.name,
         email: result.email,
-        _id: result._id
+        _id: result._id,
       },
     });
   }
 );
+const createLoginUser: RequestHandler = catchAsync(async (req, res, next) => {
+  const statusCode = 200;
+  const { email, password } = req.body;
+  const userRegisterData: TLoginUser = {
+    email,
+    password,
+  };
+
+  // will call service function to send this data------------->
+  const result = await authServices.createLoginUserIntoDB(userRegisterData);
+
+  // send response ------------>
+  res.status(statusCode).json({
+    success: true,
+    massage: "Login successful",
+    statusCode: statusCode,
+    data: {
+      token: result?.token,
+    },
+  });
+});
 
 export const authController = {
   createRegisterUser,
+  createLoginUser,
 };
