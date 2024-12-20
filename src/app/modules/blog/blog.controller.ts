@@ -42,6 +42,36 @@ const createBlog: RequestHandler = catchAsync(
   }
 );
 
+const updateBlog: RequestHandler = catchAsync(async (req, res, next) => {
+  const statusCode = 200;
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  console.log(token);
+
+  if (!token) {
+    throw new Error("You are not Authorized!");
+  }
+  const author = jwt.verify(token?.split(" ")[1], "secret") as JwtPayload;
+
+  const { title, content } = req.body;
+
+  const result = await blogService.updateBlogIntoDB(id, req.body);
+
+
+  res.status(statusCode).json({
+    success: true,
+    massage: "Blog updated successfully",
+    statusCode: statusCode,
+    data: {
+      _id: result?._id,
+      title,
+      content,
+      author,
+    },
+  });
+});
+
 export const blogController = {
   createBlog,
+  updateBlog,
 };

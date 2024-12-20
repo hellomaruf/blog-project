@@ -14,6 +14,7 @@ app.use("/api/auth", AuthRouters);
 app.use("/api", BlogRouters);
 
 
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello From Blog Project.");
 });
