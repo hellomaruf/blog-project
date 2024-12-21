@@ -1,3 +1,5 @@
+import QueryBuilder from "../../builder/queryBuilder";
+import { blogSearchableFields } from "./blog.constant";
 import { TBlog } from "./blog.interface";
 import { BlogModel } from "./blog.model";
 
@@ -16,8 +18,22 @@ const deleteBlogFromDB = async (id: string) => {
   return result;
 };
 
+const getAllBlogFromDB = async (query: Record<string, unknown>) => {
+  const courseQuery = new QueryBuilder(
+    BlogModel.find(),
+    query
+  )
+    .search(blogSearchableFields)
+    .filter()
+    .sort()
+    
+  const result = await courseQuery.modelQuery;
+  return result;
+};
+
 export const blogService = {
   createBlogIntoDB,
   updateBlogIntoDB,
   deleteBlogFromDB,
+  getAllBlogFromDB
 };
