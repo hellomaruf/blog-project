@@ -54,12 +54,19 @@ const createLoginUserIntoDB = async (payload: TLoginUser) => {
 
 const blockUserIntoDB = async (id: string, payload: Partial<TUser>) => {
   console.log(payload);
-  
+
   const blockInfo = await UserModel.findByIdAndUpdate(id, payload);
   return blockInfo;
 };
 
+const deleteUserFromDB = async (id: string) => {
+  const deleteUser = await UserModel.findByIdAndDelete(id);
+  return deleteUser;
+};
+
 export const authServices = {
   createRegisterUserIntoDB,
-  createLoginUserIntoDB,blockUserIntoDB
+  createLoginUserIntoDB,
+  blockUserIntoDB,
+  deleteUserFromDB,
 };
