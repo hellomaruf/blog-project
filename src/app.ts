@@ -11,6 +11,7 @@ app.use(cors());
 
 // application routes---------------->
 app.use("/api/auth", AuthRouters);
+app.use("/api/admin", AuthRouters);
 app.use("/api", BlogRouters);
 
 

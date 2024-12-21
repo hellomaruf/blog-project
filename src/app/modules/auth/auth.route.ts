@@ -10,7 +10,7 @@ const router = express.Router();
 router.post(
   "/register",
   validateRequest(userValidation.userValidationSchema),
-  authController.createRegisterUser  
+  authController.createRegisterUser
 );
 
 router.post(
@@ -18,5 +18,6 @@ router.post(
   validateRequest(userValidation.loginValidationSchema),
   authController.createLoginUser
 );
+router.patch("/users/:Id/block", auth("admin"), authController.blockUser);
 
 export const AuthRouters = router;

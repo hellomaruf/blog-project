@@ -69,6 +69,7 @@ const updateBlog: RequestHandler = catchAsync(async (req, res, next) => {
     },
   });
 });
+
 const deleteBlog: RequestHandler = catchAsync(async (req, res, next) => {
   const statusCode = 200;
   const { id } = req.params;

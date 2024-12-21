@@ -34,7 +34,7 @@ const createLoginUserIntoDB = async (payload: TLoginUser) => {
 
   const token = jwt.sign(
     {
-      _id : user?._id,
+      _id: user?._id,
       name: user?.name,
       email: user?.email,
       role: user?.role,
@@ -52,7 +52,14 @@ const createLoginUserIntoDB = async (payload: TLoginUser) => {
   };
 };
 
+const blockUserIntoDB = async (id: string, payload: Partial<TUser>) => {
+  console.log(payload);
+  
+  const blockInfo = await UserModel.findByIdAndUpdate(id, payload);
+  return blockInfo;
+};
+
 export const authServices = {
   createRegisterUserIntoDB,
-  createLoginUserIntoDB,
+  createLoginUserIntoDB,blockUserIntoDB
 };

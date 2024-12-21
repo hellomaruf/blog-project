@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { authServices } from "./auth.service";
 import { TLoginUser, TUser } from "./auth.interface";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const createRegisterUser: RequestHandler = catchAsync(
   async (req, res, next) => {
@@ -55,7 +56,33 @@ const createLoginUser: RequestHandler = catchAsync(async (req, res, next) => {
   });
 });
 
+const blockUser: RequestHandler = catchAsync(async (req, res, next) => {
+  const statusCode = 200;
+  const  {Id}  = req.params;
+  console.log("block user ", Id);
+  
+
+  // const token = req.headers.authorization;
+  // console.log(token);
+
+  // if (!token) {
+  //   throw new Error("You are not Authorized!");
+  // }
+  // const author = jwt.verify(token?.split(" ")[1], "secret") as JwtPayload;
+
+  await authServices.blockUserIntoDB(Id, {
+    isBlocked: true,
+  });
+
+  res.status(statusCode).json({
+    success: true,
+    massage: "User blocked successfully",
+    statusCode: statusCode,
+  });
+});
+
 export const authController = {
   createRegisterUser,
   createLoginUser,
+  blockUser,
 };
