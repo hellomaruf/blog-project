@@ -15,12 +15,11 @@ router.post(
 router.patch("/blogs/:id", auth("user"), blogController.updateBlog);
 router.delete(
   "/blogs/:id",
-  auth("user"),
   blogController.deleteBlog
 );
-router.get(
-  "/blogs",
-  blogController.getAllBlog
-);
+router.get("/blogs", blogController.getAllBlog);
+
+router.delete("/blogs/:id", auth("admin"), blogController.deleteBlog);
+
 
 export const BlogRouters = router;

@@ -13,6 +13,7 @@ app.use(cors());
 app.use("/api/auth", AuthRouters);
 app.use("/api/admin", AuthRouters);
 app.use("/api", BlogRouters);
+app.use("/api/admin", BlogRouters);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello From Blog Project.");

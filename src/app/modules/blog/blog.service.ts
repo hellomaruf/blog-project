@@ -28,9 +28,14 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const deleteBlogAdminFromDB = async (id: string) => {
+  const deleteBlog = await BlogModel.findByIdAndDelete(id);
+  return deleteBlog;
+};
 export const blogService = {
   createBlogIntoDB,
   updateBlogIntoDB,
   deleteBlogFromDB,
   getAllBlogFromDB,
+  deleteBlogAdminFromDB,
 };

@@ -93,9 +93,26 @@ const getAllBlog: RequestHandler = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
+
+const deleteBlogAdmin: RequestHandler = catchAsync(async (req, res, next) => {
+  const statusCode = 200;
+  const { id } = req.params;
+  console.log("block user ", id);
+
+  await blogService.deleteBlogAdminFromDB(id);
+
+  res.status(statusCode).json({
+    success: true,
+    massage: "Blog deleted successfully",
+    statusCode: statusCode,
+  });
+});
+
+
 export const blogController = {
   createBlog,
   updateBlog,
   deleteBlog,
   getAllBlog,
+  deleteBlogAdmin,
 };

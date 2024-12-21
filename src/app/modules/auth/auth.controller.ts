@@ -58,9 +58,8 @@ const createLoginUser: RequestHandler = catchAsync(async (req, res, next) => {
 
 const blockUser: RequestHandler = catchAsync(async (req, res, next) => {
   const statusCode = 200;
-  const  {Id}  = req.params;
+  const { Id } = req.params;
   console.log("block user ", Id);
-  
 
   await authServices.blockUserIntoDB(Id, {
     isBlocked: true,
@@ -72,22 +71,11 @@ const blockUser: RequestHandler = catchAsync(async (req, res, next) => {
     statusCode: statusCode,
   });
 });
-const deleteUser: RequestHandler = catchAsync(async (req, res, next) => {
-  const statusCode = 200;
-  const  {id}  = req.params;
-  console.log("block user ", id);
-  
-  await authServices.deleteUserFromDB(id);
 
-  res.status(statusCode).json({
-    success: true,
-    massage: "Blog deleted successfully",
-    statusCode: statusCode,
-  });
-});
 
 export const authController = {
   createRegisterUser,
   createLoginUser,
-  blockUser,deleteUser
+  blockUser,
+ 
 };

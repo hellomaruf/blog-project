@@ -19,6 +19,6 @@ router.post(
   authController.createLoginUser
 );
 router.patch("/users/:Id/block", auth("admin"), authController.blockUser);
-router.delete("/blogs/:id", auth("admin"), authController.deleteUser);
+// router.delete("/blogs/:id", auth("admin"), authController.deleteUser);
 
 export const AuthRouters = router;
