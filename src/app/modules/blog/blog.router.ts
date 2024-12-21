@@ -12,11 +12,11 @@ router.post(
   //   auth("user"),
   blogController.createBlog
 );
-router.patch(
+router.patch("/blogs/:id", auth("user"), blogController.updateBlog);
+router.delete(
   "/blogs/:id",
-  //   validateRequest(blogValidation.BlogSchema),
-  auth("user"),
-  blogController.updateBlog
+  // auth("user"),
+  blogController.deleteBlog
 );
 
 export const BlogRouters = router;

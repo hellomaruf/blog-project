@@ -57,7 +57,6 @@ const updateBlog: RequestHandler = catchAsync(async (req, res, next) => {
 
   const result = await blogService.updateBlogIntoDB(id, req.body);
 
-
   res.status(statusCode).json({
     success: true,
     massage: "Blog updated successfully",
@@ -70,8 +69,21 @@ const updateBlog: RequestHandler = catchAsync(async (req, res, next) => {
     },
   });
 });
+const deleteBlog: RequestHandler = catchAsync(async (req, res, next) => {
+  const statusCode = 200;
+  const { id } = req.params;
+
+  await blogService.deleteBlogFromDB(id);
+
+  res.status(statusCode).json({
+    success: true,
+    massage: "Blog deleted successfully",
+    statusCode: statusCode,
+  });
+});
 
 export const blogController = {
   createBlog,
   updateBlog,
+  deleteBlog,
 };
