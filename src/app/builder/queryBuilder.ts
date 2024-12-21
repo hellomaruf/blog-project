@@ -28,7 +28,7 @@ class QueryBuilder<T> {
   // Method for filtering------------->
   filter() {
     const queryObj = { ...this.query };
-    const excludingImportant = ["search"];
+    const excludingImportant = ["search", "sortBy", "sortOrder"];
 
     excludingImportant.forEach((key) => delete queryObj[key]);
 
@@ -50,9 +50,6 @@ class QueryBuilder<T> {
     this.modelQuery = this.modelQuery.sort({ [sortBy as string]: sortOrder });
     return this;
   }
-
-
- 
 }
 
 export default QueryBuilder;

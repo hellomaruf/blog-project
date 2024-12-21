@@ -15,7 +15,7 @@ router.post(
 router.patch("/blogs/:id", auth("user"), blogController.updateBlog);
 router.delete(
   "/blogs/:id",
-  // auth("user"),
+  auth("user"),
   blogController.deleteBlog
 );
 router.get(

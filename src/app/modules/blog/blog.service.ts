@@ -19,14 +19,11 @@ const deleteBlogFromDB = async (id: string) => {
 };
 
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
-  const courseQuery = new QueryBuilder(
-    BlogModel.find(),
-    query
-  )
+  const courseQuery = new QueryBuilder(BlogModel.find(), query)
     .search(blogSearchableFields)
     .filter()
-    .sort()
-    
+    .sort();
+
   const result = await courseQuery.modelQuery;
   return result;
 };
@@ -35,5 +32,5 @@ export const blogService = {
   createBlogIntoDB,
   updateBlogIntoDB,
   deleteBlogFromDB,
-  getAllBlogFromDB
+  getAllBlogFromDB,
 };
