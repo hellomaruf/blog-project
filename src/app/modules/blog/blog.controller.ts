@@ -97,7 +97,15 @@ const getAllBlog: RequestHandler = catchAsync(async (req, res, next) => {
 const deleteBlogAdmin: RequestHandler = catchAsync(async (req, res, next) => {
   const statusCode = 200;
   const { id } = req.params;
-  console.log("block user ", id);
+
+  const token = req.headers;
+  console.log(token);
+
+  if (!token) {
+    throw new Error("You are not Authorized!");
+  }
+  // const author = jwt.verify(token?.split(" ")[1], "secret") as JwtPayload;
+  // console.log(author);
 
   await blogService.deleteBlogAdminFromDB(id);
 
@@ -107,7 +115,6 @@ const deleteBlogAdmin: RequestHandler = catchAsync(async (req, res, next) => {
     statusCode: statusCode,
   });
 });
-
 
 export const blogController = {
   createBlog,
